@@ -2,14 +2,17 @@ package hu.ClashRoyale456.wardenAnticheat;
 
 import hu.ClashRoyale456.wardenAnticheat.Checks.*;
 import hu.ClashRoyale456.wardenAnticheat.Commands.WardenCommand;
+import hu.ClashRoyale456.wardenAnticheat.Database.MySQL;
 import hu.ClashRoyale456.wardenAnticheat.Hooks.*;
 import hu.ClashRoyale456.wardenAnticheat.Listeners.PlayerListener;
+import hu.ClashRoyale456.wardenAnticheat.Velocity.VelocitySupport;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class WardenAnticheat extends JavaPlugin {
 
     private static WardenAnticheat instance;
 
+    // Check példányok
     private TriggerBot triggerBotCheck;
     private AutoClicker autoClickerCheck;
     private Timer timerCheck;
@@ -22,6 +25,7 @@ public final class WardenAnticheat extends JavaPlugin {
     private Reach reachCheck;
     private KillAura killAuraCheck;
 
+    // Hook példányok
     private Discord discordHook;
     private GrimAC grimACHook;
     private Vulcan vulcanHook;
@@ -30,11 +34,22 @@ public final class WardenAnticheat extends JavaPlugin {
     private ProtocolLib protocolLibHook;
     private PlaceholderAPIHook placeholderAPIHook;
 
+    // Database és Proxy
+    private MySQL mySQL;
+    private VelocitySupport velocitySupport;
+
     @Override
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
 
+        // MySQL
+        mySQL = new MySQL(this);
+        if (getConfig().getBoolean("MySQL.enabled", false)) {
+            mySQL.connect();
+        }
+
+        // Hookok
         packetEventsHook = new PacketEventsHook(this);
         packetEventsHook.setup();
 
@@ -50,10 +65,16 @@ public final class WardenAnticheat extends JavaPlugin {
         placeholderAPIHook = new PlaceholderAPIHook(this);
         placeholderAPIHook.setup();
 
+        // Velocity
+        velocitySupport = new VelocitySupport(this);
+        velocitySupport.setup();
+
+        // Commands
         WardenCommand handler = new WardenCommand(this);
         getCommand("warden").setExecutor(handler);
         getCommand("warden").setTabCompleter(handler);
 
+        // Check példányok létrehozása
         reachCheck       = new Reach(this);
         speedCheck       = new Speed(this);
         flightCheck      = new Flight(this);
@@ -66,6 +87,7 @@ public final class WardenAnticheat extends JavaPlugin {
         timerLimitCheck  = new TimerLimit(this);
         triggerBotCheck  = new TriggerBot(this);
 
+        // Checks regisztrálása
         getServer().getPluginManager().registerEvents(reachCheck, this);
         getServer().getPluginManager().registerEvents(speedCheck, this);
         getServer().getPluginManager().registerEvents(flightCheck, this);
@@ -78,6 +100,7 @@ public final class WardenAnticheat extends JavaPlugin {
         getServer().getPluginManager().registerEvents(timerLimitCheck, this);
         getServer().getPluginManager().registerEvents(triggerBotCheck, this);
 
+        // Listener
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 
         getLogger().info("The WardenAC is now protecting your server!");
@@ -86,10 +109,15 @@ public final class WardenAnticheat extends JavaPlugin {
     @Override
     public void onDisable() {
         if (packetEventsHook != null) packetEventsHook.disable();
+        if (mySQL != null && mySQL.isConnected()) mySQL.disconnect();
+        if (velocitySupport != null) velocitySupport.disable();
         getLogger().info("WardenAC leállítva.");
     }
 
+    // Getterek
     public static WardenAnticheat getInstance() { return instance; }
+    public MySQL getMySQL() { return mySQL; }
+    public VelocitySupport getVelocitySupport() { return velocitySupport; }
     public Discord getDiscordHook() { return discordHook; }
     public GrimAC getGrimACHook() { return grimACHook; }
     public Vulcan getVulcanHook() { return vulcanHook; }

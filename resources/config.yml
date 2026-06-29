@@ -1,0 +1,101 @@
+# WardenAC configuration file no. 1
+
+#Maded by ClashRoyale456
+#Don't touch it
+config-version: 3.0
+
+hooks:
+  OldCombatMechanics:
+    enableade: false
+    # -1 to disable
+    max-cps: -1
+
+  Discord:
+    enableade: false
+    webhook: ''
+    Message: '**Warden**>> %player% failed %cheat% (%client%, %cversion%, %cnumber%)'
+
+  GrimAC:
+    enableade: false
+
+  Vulcan:
+    enableade: false
+
+  PacketEvents:
+    enableade: false
+
+  ProtocolLib:
+    enableade: false
+
+Checks:
+  Reach:
+    enableade: true
+    max-reach: 3.1
+    auto-punish: true
+    punish-threshold: 10
+    punish:
+      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
+
+  Speed:
+    enableade: true
+    auto-punish: true
+    punish-threshold: 10
+    punish:
+      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
+
+  Flight:
+    enableade: true
+    auto-punish: true
+    punish-threshold: 10
+    punish:
+      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
+
+  KillAura:
+    enableade: true
+    auto-punish: true
+    punish-threshold: 15
+    punish:
+      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
+
+  AutoClicker:
+    enableade: true
+    max-cps: 20
+    auto-punish: true
+    punish-threshold: 10
+    punish:
+      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
+
+  Timer:
+    enableade: true
+    auto-punish: true
+    punish-threshold: 10
+    punish:
+      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
+
+  Scaffold:
+    enableade: true
+    auto-punish: true
+    punish-threshold: 10
+    punish:
+      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
+
+  TriggerBot:
+    enebleade: true
+    auto-punish: true
+    punish-treshold: 5
+    punish:
+        - 'kick %player &4Warden&7>> &fYou are suspended for cheating'
+
+MySQL:
+  enabled: false
+  host: 'localhost'
+  port: 3306
+  database: 'warden'
+  username: 'root'
+  password: ''
+  pool-size: 10
+  table-prefix: 'warden_'
+
+Velocity:
+  enabled: false
+  secret: 'your-velocity-secret'

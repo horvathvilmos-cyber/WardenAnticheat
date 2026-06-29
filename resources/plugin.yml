@@ -1,0 +1,43 @@
+name: WardenAnticheat
+version: '${project.version}'
+main: hu.ClashRoyale456.wardenAnticheat.WardenAnticheat
+api-version: '1.21'
+author: ClashRoyale456
+depend:
+  - PacketEvents
+  - PlaceholderAPI
+
+commands:
+  warden:
+    description: Warden Anticheat főparancs
+    usage: /warden <subcommand>
+    permission: warden.use
+
+permissions:
+  warden.use:
+    description: Warden parancs használata
+    default: op
+  warden.help:
+    description: Help megtekintése
+    default: op
+  warden.playerinfo:
+    description: Játékos info megtekintése
+    default: op
+  warden.violations:
+    description: Violations megtekintése
+    default: op
+  warden.alerts:
+    description: Alerts ki/be kapcsolás
+    default: op
+  warden.kick:
+    description: Játékos kirúgása
+    default: op
+  warden.ban:
+    description: Játékos bannolása
+    default: op
+  warden.reload:
+    description: Config újratöltés
+    default: op
+  warden.bypass:
+    description: Anticheat bypass
+    default: false
