@@ -1,8 +1,8 @@
 package hu.ClashRoyale456.wardenAnticheat.Checks;
 
+import hu.ClashRoyale456.wardenAnticheat.Commands.subcommands.AlertsSubCommand;
 import hu.ClashRoyale456.wardenAnticheat.Data.PlayerData;
 import hu.ClashRoyale456.wardenAnticheat.Data.PlayerDataManager;
-import hu.ClashRoyale456.wardenAnticheat.Commands.subcommands.AlertsSubCommand;
 import hu.ClashRoyale456.wardenAnticheat.WardenAnticheat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -26,7 +26,7 @@ public abstract class Check {
         data.addViolation(checkName, 1);
         int vl = data.getViolations(checkName);
 
-        String alertMsg = "§4Warden &7» §f" + player.getName()
+        String alertMsg = "§c[Warden] §f" + player.getName()
                 + " §cfailed §e" + checkName
                 + " §7(VL: " + vl + ") §f" + detail;
 
@@ -34,8 +34,20 @@ public abstract class Check {
                 .filter(p -> AlertsSubCommand.alertsEnabled.contains(p.getUniqueId()))
                 .forEach(p -> p.sendMessage(alertMsg));
 
-        // Console log
-        plugin.getLogger().info(player.getName() + " failed " + checkName + " VL:" + vl + " " + detail);
+        plugin.getLogger().info(player.getName() + " failed " + checkName
+                + " VL:" + vl + " " + detail);
+
+        if (plugin.getMySQL() != null && plugin.getMySQL().isConnected()) {
+            plugin.getMySQL().saveViolation(player.getUniqueId(), checkName, vl, detail);
+        }
+
+        if (plugin.getDiscordHook() != null) {
+            plugin.getDiscordHook().sendAlert(player, checkName, vl);
+        }
+
+        if (plugin.getVelocitySupport() != null) {
+            plugin.getVelocitySupport().broadcastAlert(player, checkName, vl, detail);
+        }
 
         int threshold = plugin.getConfig().getInt("Checks." + checkName + ".punish-threshold", 10);
         if (plugin.getConfig().getBoolean("Checks." + checkName + ".auto-punish", false)
@@ -50,6 +62,15 @@ public abstract class Check {
         for (String cmd : commands) {
             String finalCmd = cmd.replace("%player%", player.getName());
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCmd);
+        }
+
+        if (plugin.getMySQL() != null && plugin.getMySQL().isConnected()) {
+            plugin.getMySQL().savePunishment(
+                    player.getUniqueId(),
+                    "kick",
+                    "Anticheat - " + checkName,
+                    checkName
+            );
         }
     }
 }
