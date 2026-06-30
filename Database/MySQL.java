@@ -54,7 +54,6 @@ public class MySQL {
 
     private void createTables() throws SQLException {
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
-            // Játékosok tábla
             stmt.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS " + tablePrefix + "players (" +
                             "uuid VARCHAR(36) NOT NULL PRIMARY KEY," +
@@ -65,7 +64,6 @@ public class MySQL {
                             ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"
             );
 
-            // Violations tábla
             stmt.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS " + tablePrefix + "violations (" +
                             "id INT AUTO_INCREMENT PRIMARY KEY," +
@@ -78,7 +76,6 @@ public class MySQL {
                             ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"
             );
 
-            // Punishments tábla
             stmt.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS " + tablePrefix + "punishments (" +
                             "id INT AUTO_INCREMENT PRIMARY KEY," +
@@ -108,7 +105,6 @@ public class MySQL {
         }
     }
 
-    // Játékos mentése/frissítése
     public void savePlayer(Player player, String clientBrand) {
         if (!isConnected()) return;
 
@@ -135,7 +131,6 @@ public class MySQL {
         });
     }
 
-    // Violation mentése
     public void saveViolation(UUID uuid, String checkName, int vl, String detail) {
         if (!isConnected()) return;
 
@@ -162,7 +157,6 @@ public class MySQL {
         });
     }
 
-    // Punishment mentése
     public void savePunishment(UUID uuid, String type, String reason, String checkName) {
         if (!isConnected()) return;
 
@@ -184,7 +178,6 @@ public class MySQL {
         });
     }
 
-    // Violations lekérése offline játékoshoz
     public Map<String, Integer> getViolations(UUID uuid) {
         Map<String, Integer> violations = new HashMap<>();
         if (!isConnected()) return violations;
