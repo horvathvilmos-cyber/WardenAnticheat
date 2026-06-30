@@ -22,7 +22,6 @@ public class VelocitySupport implements PluginMessageListener {
     public boolean setup() {
         if (!plugin.getConfig().getBoolean("Velocity.enabled", false)) return false;
 
-        // Channel regisztrálás
         plugin.getServer().getMessenger().registerIncomingPluginChannel(plugin, CHANNEL, this);
         plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, CHANNEL);
         plugin.getServer().getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", this);
@@ -41,7 +40,6 @@ public class VelocitySupport implements PluginMessageListener {
             String subChannel = in.readUTF();
 
             switch (subChannel) {
-                // Proxy elküldi a játékos IP-jét
                 case "PlayerIP": {
                     String playerName = in.readUTF();
                     String ip = in.readUTF();
@@ -49,7 +47,6 @@ public class VelocitySupport implements PluginMessageListener {
                     break;
                 }
 
-                // Proxy kér violation adatot
                 case "GetViolations": {
                     String targetName = in.readUTF();
                     Player target = plugin.getServer().getPlayer(targetName);
@@ -58,13 +55,11 @@ public class VelocitySupport implements PluginMessageListener {
                     var data = PlayerDataManager.getData(target);
                     if (data == null) return;
 
-                    // Visszaküldés a proxynak
                     sendToProxy(player, "Violations", targetName,
                             String.valueOf(data.getTotalViolations()));
                     break;
                 }
 
-                // Proxy ban üzenet
                 case "BanPlayer": {
                     String targetName = in.readUTF();
                     String reason = in.readUTF();
@@ -75,7 +70,6 @@ public class VelocitySupport implements PluginMessageListener {
                     break;
                 }
 
-                // Alert broadcast más szerverekről
                 case "Alert": {
                     String serverName = in.readUTF();
                     String alertMsg = in.readUTF();
@@ -92,7 +86,6 @@ public class VelocitySupport implements PluginMessageListener {
         }
     }
 
-    // Üzenet küldése a proxynak
     public void sendToProxy(Player player, String... data) {
         try {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -104,7 +97,6 @@ public class VelocitySupport implements PluginMessageListener {
         }
     }
 
-    // Alert küldése más szerverekre
     public void broadcastAlert(Player player, String checkName, int vl, String detail) {
         if (!plugin.getConfig().getBoolean("Velocity.enabled", false)) return;
 
