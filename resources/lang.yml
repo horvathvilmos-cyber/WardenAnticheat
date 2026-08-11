@@ -1,0 +1,56 @@
+# WardenAC Language File
+# Useable color codes: &a, &b, &c, etc.
+# Placeholders: %player%, %check%, %vl%, %detail%, %client%
+
+prefix: '&4Warden &8» &r'
+
+commands:
+  no-permission: '%prefix%&cYou had no permission for this!'
+  player-only: '%prefix%&cIts only use by a player!'
+  player-not-found: '%prefix%&cPlayer not found, or not online!'
+  no-data: '%prefix%&cFailed to load data for this player!'
+  unknown-command: '%prefix%&cUnknow command! Try this: &e/warden help'
+  usage: '%prefix%&eUsage: /warden help'
+
+  reload:
+    success: '%prefix%&aConfig has succesfuly reloaded!'
+
+  kick:
+    success: '%prefix%&f%player% &ahas kicked: &f%reason%'
+    reason: 'Anticheat - Warden'
+
+  ban:
+    success: '%prefix%&f%player% &ahas banned: &f%reason%'
+    reason: 'Anticheat - Warden'
+
+  alerts:
+    enabled: '%prefix%Alerts &ahas enablade&r.'
+    disabled: '%prefix%Alerts &chas disabled&r.'
+
+  violations:
+    none: '&7Not has flag.'
+    header: '%prefix%&f%player% &8– Violations'
+    entry: '  &c%check%: &f%vl% VL &7(%ago% mp-je)'
+
+  violations-reset:
+    success: '%prefix%&f%player% &aviolations has deleted!'
+
+alerts:
+  flag: '%prefix%&f%player% &cfailed &e%check% &7(VL: %vl%) &f%detail%'
+  join: '%prefix%&f%player% &7joined using &f%client%'
+
+punish:
+  kick-message: '&c[Warden]\n&fAnticheat - %check%'
+  broadcast: '%prefix%&f%player% &csuspended for cheating. &7(%check%)'
+
+gui:
+  player-info-title: '&4Warden &8» &f%player%'
+  client-info-name: '&b&lClient Info'
+  violations-name: '&c&lViolations'
+  server-info-name: '&a&lServer Info'
+  kick-button-name: '&c&lKick'
+  kick-button-lore: '&7Click to kick this player!'
+  reset-button-name: '&6&lViolations Reset'
+  reset-button-lore: '&7Click to delete the violations!'
+  close-button-name: '&8Closa'
+  close-button-lore: '&7Click to close!'
