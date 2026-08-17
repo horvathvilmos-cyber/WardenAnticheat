@@ -4,39 +4,41 @@ main: hu.ClashRoyale456.wardenAnticheat.WardenAnticheat
 api-version: '1.21'
 author: ClashRoyale456
 depend:
-  - PacketEvents
+  - packetevents
   - PlaceholderAPI
+softdepend:
+  - floodgate
 
 commands:
   warden:
-    description: Warden Anticheat főparancs
+    description: Warden Anticheat main command
     usage: /warden <subcommand>
     permission: warden.use
 
 permissions:
   warden.use:
-    description: Warden parancs használata
+    description: Warden commands use perm
     default: op
   warden.help:
-    description: Help megtekintése
+    description: Help use permission
     default: op
   warden.playerinfo:
-    description: Játékos info megtekintése
+    description: See player informations
     default: op
   warden.violations:
-    description: Violations megtekintése
+    description: See violations
     default: op
   warden.alerts:
-    description: Alerts ki/be kapcsolás
+    description: Alerts on/off
     default: op
   warden.kick:
-    description: Játékos kirúgása
+    description: Kick player
     default: op
   warden.ban:
-    description: Játékos bannolása
+    description: Ban player
     default: op
   warden.reload:
-    description: Config újratöltés
+    description: Reload config
     default: op
   warden.bypass:
     description: Anticheat bypass
