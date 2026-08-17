@@ -1,16 +1,24 @@
 package hu.ClashRoyale456.wardenAnticheat;
 
 import hu.ClashRoyale456.wardenAnticheat.Checks.*;
+import hu.ClashRoyale456.wardenAnticheat.Clients.BedrockDetector;
 import hu.ClashRoyale456.wardenAnticheat.Commands.WardenCommand;
 import hu.ClashRoyale456.wardenAnticheat.Database.MySQL;
 import hu.ClashRoyale456.wardenAnticheat.Hooks.*;
+import hu.ClashRoyale456.wardenAnticheat.Listeners.GUIListener;
 import hu.ClashRoyale456.wardenAnticheat.Listeners.PlayerListener;
+import hu.ClashRoyale456.wardenAnticheat.Utils.ConfigManager;
+import hu.ClashRoyale456.wardenAnticheat.Utils.LangManager;
 import hu.ClashRoyale456.wardenAnticheat.Velocity.VelocitySupport;
 import org.bukkit.plugin.java.JavaPlugin;
+import hu.ClashRoyale456.wardenAnticheat.Utils.ViolationsResetTask;
 
 public final class WardenAnticheat extends JavaPlugin {
 
     private static WardenAnticheat instance;
+
+    private LangManager langManager;
+    private ConfigManager configManager;
 
     private TriggerBot triggerBotCheck;
     private AutoClicker autoClickerCheck;
@@ -23,6 +31,7 @@ public final class WardenAnticheat extends JavaPlugin {
     private Speed speedCheck;
     private Reach reachCheck;
     private KillAura killAuraCheck;
+
     private Discord discordHook;
     private GrimAC grimACHook;
     private Vulcan vulcanHook;
@@ -34,10 +43,17 @@ public final class WardenAnticheat extends JavaPlugin {
     private MySQL mySQL;
     private VelocitySupport velocitySupport;
 
+    private BedrockDetector bedrockDetector;
+
     @Override
     public void onEnable() {
         instance = this;
+
         saveDefaultConfig();
+        configManager = new ConfigManager(this);
+        configManager.updateConfig();
+
+        langManager = new LangManager(this);
 
         mySQL = new MySQL(this);
         if (getConfig().getBoolean("MySQL.enabled", false)) {
@@ -59,8 +75,13 @@ public final class WardenAnticheat extends JavaPlugin {
         placeholderAPIHook = new PlaceholderAPIHook(this);
         placeholderAPIHook.setup();
 
+        bedrockDetector = new BedrockDetector(this);
+        bedrockDetector.setup();
+
         velocitySupport = new VelocitySupport(this);
         velocitySupport.setup();
+
+        ViolationsResetTask.start(this);
 
         WardenCommand handler = new WardenCommand(this);
         getCommand("warden").setExecutor(handler);
@@ -77,6 +98,7 @@ public final class WardenAnticheat extends JavaPlugin {
         autoTotemCheck   = new AutoTotem(this);
         timerLimitCheck  = new TimerLimit(this);
         triggerBotCheck  = new TriggerBot(this);
+
         getServer().getPluginManager().registerEvents(reachCheck, this);
         getServer().getPluginManager().registerEvents(speedCheck, this);
         getServer().getPluginManager().registerEvents(flightCheck, this);
@@ -90,6 +112,7 @@ public final class WardenAnticheat extends JavaPlugin {
         getServer().getPluginManager().registerEvents(triggerBotCheck, this);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        getServer().getPluginManager().registerEvents(new GUIListener(this), this);
 
         getLogger().info("The WardenAC is now protecting your server!");
     }
@@ -103,8 +126,11 @@ public final class WardenAnticheat extends JavaPlugin {
     }
 
     public static WardenAnticheat getInstance() { return instance; }
+    public LangManager getLangManager() { return langManager; }
+    public ConfigManager getConfigManager() { return configManager; }
     public MySQL getMySQL() { return mySQL; }
     public VelocitySupport getVelocitySupport() { return velocitySupport; }
+    public BedrockDetector getBedrockDetector() { return bedrockDetector; }
     public Discord getDiscordHook() { return discordHook; }
     public GrimAC getGrimACHook() { return grimACHook; }
     public Vulcan getVulcanHook() { return vulcanHook; }
