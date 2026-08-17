@@ -1,8 +1,171 @@
-# WardenAC configuration file no. 1
+# WardenAC Config file from Modrinth
 
 #Maded by ClashRoyale456
-#Don't touch it
-config-version: 3.0
+#Don't touch this line:
+config-version: 4.0
+
+violations:
+  auto-reset:
+    enabled: true
+    interval: 10
+    reset-on-leave: false
+
+Checks:
+  Reach:
+    enableade: true
+    max-reach: 3.1
+    punish-threshold: 10
+    auto-punish: true
+    punish:
+      - 'kick %player% Warden » You are suspended for cheating'
+    threshold:
+      5:
+        - 'bc &4&lWarden &r&7» &f%playe% &csuspicious behavior detected! &7(%check%)'
+      10:
+        - 'kick %player% Warden » You are suspended for cheating'
+      20:
+        - 'ban %player% Warden » You are permanently suspended for cheating'
+
+  Speed:
+    enableade: true
+    auto-punish: true
+    punish-threshold: 10
+    punish:
+      - 'kick %player% Warden » You are suspended for cheating'
+    thresholds:
+      5:
+        - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+      10:
+        - 'kick %player% Warden » You are suspended for cheating'
+      20:
+        - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    Flight:
+      enableade: true
+      auto-punish: true
+      punish-threshold: 10
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        5:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        10:
+          - 'kick %player% Warden » You are suspended for cheating'
+        20:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    KillAura:
+      enableade: true
+      auto-punish: true
+      punish-threshold: 15
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        5:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        15:
+          - 'kick %player% Warden » You are suspended for cheating'
+        25:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    AutoClicker:
+      enableade: true
+      max-cps: 20
+      auto-punish: true
+      punish-threshold: 10
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        5:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        10:
+          - 'kick %player% Warden » You are suspended for cheating'
+        20:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    Timer:
+      enableade: true
+      auto-punish: true
+      punish-threshold: 10
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        5:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        10:
+          - 'kick %player% Warden » You are suspended for cheating'
+        20:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    Scaffold:
+      enableade: true
+      auto-punish: true
+      punish-threshold: 10
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        5:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        10:
+          - 'kick %player% Warden » You are suspended for cheating'
+        20:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    Baritone:
+      enableade: true
+      auto-punish: true
+      punish-threshold: 5
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        3:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        5:
+          - 'kick %player% Warden » You are suspended for cheating'
+        10:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    AutoTotem:
+      enableade: true
+      auto-punish: true
+      punish-threshold: 3
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        2:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        3:
+          - 'kick %player% Warden » You are suspended for cheating'
+        6:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    TimerLimit:
+      enableade: true
+      auto-punish: true
+      punish-threshold: 10
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        5:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        10:
+          - 'kick %player% Warden » You are suspended for cheating'
+        20:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
+
+    TriggerBot:
+      enableade: true
+      auto-punish: true
+      punish-threshold: 5
+      punish:
+        - 'kick %player% Warden » You are suspended for cheating'
+      thresholds:
+        3:
+          - 'broadcast &4&lWarden &r&7» &f%player% &csuspicious behavior detected! &7(%check%)'
+        5:
+          - 'kick %player% Warden » You are suspended for cheating'
+        10:
+          - 'ban %player% Warden » You are permanently suspended for cheating'
 
 hooks:
   OldCombatMechanics:
@@ -26,65 +189,6 @@ hooks:
 
   ProtocolLib:
     enableade: false
-
-Checks:
-  Reach:
-    enableade: true
-    max-reach: 3.1
-    auto-punish: true
-    punish-threshold: 10
-    punish:
-      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
-
-  Speed:
-    enableade: true
-    auto-punish: true
-    punish-threshold: 10
-    punish:
-      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
-
-  Flight:
-    enableade: true
-    auto-punish: true
-    punish-threshold: 10
-    punish:
-      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
-
-  KillAura:
-    enableade: true
-    auto-punish: true
-    punish-threshold: 15
-    punish:
-      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
-
-  AutoClicker:
-    enableade: true
-    max-cps: 20
-    auto-punish: true
-    punish-threshold: 10
-    punish:
-      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
-
-  Timer:
-    enableade: true
-    auto-punish: true
-    punish-threshold: 10
-    punish:
-      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
-
-  Scaffold:
-    enableade: true
-    auto-punish: true
-    punish-threshold: 10
-    punish:
-      - 'kick %player% &4Warden&7>> &fYou are suspended for cheating'
-
-  TriggerBot:
-    enebleade: true
-    auto-punish: true
-    punish-treshold: 5
-    punish:
-        - 'kick %player &4Warden&7>> &fYou are suspended for cheating'
 
 MySQL:
   enabled: false
