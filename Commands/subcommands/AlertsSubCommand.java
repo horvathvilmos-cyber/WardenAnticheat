@@ -4,6 +4,7 @@ import hu.ClashRoyale456.wardenAnticheat.Commands.SubCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import java.util.*;
+import org.bukkit.ChatColor;
 
 public class AlertsSubCommand implements SubCommand {
 
@@ -12,7 +13,7 @@ public class AlertsSubCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("§c[Warden] Ezt csak játékos használhatja!");
+            sender.sendMessage(ChatColor.RED + "Warden » You are not an Player");
             return;
         }
 
@@ -20,10 +21,10 @@ public class AlertsSubCommand implements SubCommand {
 
         if (alertsEnabled.contains(p.getUniqueId())) {
             alertsEnabled.remove(p.getUniqueId());
-            p.sendMessage("§c[Warden] Alerts §lKIKAPCSOLVA§r§c.");
+            p.sendMessage(ChatColor.RED + "Warden » Alerts §lKIKAPCSOLVA§r§c.");
         } else {
             alertsEnabled.add(p.getUniqueId());
-            p.sendMessage("§a[Warden] Alerts §lBEKAPCSOLVA§r§a.");
+            p.sendMessage(ChatColor.GREEN + " Warden » Alerts BEKAPCSOLVA");
         }
     }
 

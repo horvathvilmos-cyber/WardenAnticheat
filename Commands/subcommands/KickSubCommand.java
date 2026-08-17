@@ -6,19 +6,20 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.bukkit.ChatColor;
 
 public class KickSubCommand implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage("§cHasználat: " + getUsage());
+            sender.sendMessage(ChatColor.RED + "Használat: " + getUsage());
             return;
         }
 
         Player target = Bukkit.getPlayer(args[1]);
         if (target == null) {
-            sender.sendMessage("§c[Warden] A játékos nem található vagy nincs online!");
+            sender.sendMessage(ChatColor.RED + "[Warden] A játékos nem található vagy nincs online!");
             return;
         }
 
