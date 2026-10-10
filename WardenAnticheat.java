@@ -12,6 +12,7 @@ import hu.ClashRoyale456.wardenAnticheat.Utils.LangManager;
 import hu.ClashRoyale456.wardenAnticheat.Velocity.VelocitySupport;
 import org.bukkit.plugin.java.JavaPlugin;
 import hu.ClashRoyale456.wardenAnticheat.Utils.ViolationsResetTask;
+import org.bstats.bukkit.Metrics;
 
 public final class WardenAnticheat extends JavaPlugin {
 
@@ -59,6 +60,9 @@ public final class WardenAnticheat extends JavaPlugin {
         if (getConfig().getBoolean("MySQL.enabled", false)) {
             mySQL.connect();
         }
+
+        int pluginId = 34135;
+        Metrics metcrics = new Metrics(this, pluginId);
 
         packetEventsHook = new PacketEventsHook(this);
         packetEventsHook.setup();
